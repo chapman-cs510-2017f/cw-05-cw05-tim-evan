@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-import abscplane
+from abscplane import AbsComplexPlane
 
 ###
 # Name: Evan A Walker, Tim lastName
@@ -10,8 +11,9 @@ import abscplane
 # Assignment: Classwork 5
 ###
 
-class ListComplexPlane(abscplane):
-    def __init__(self, xmin, xmax, xlen, ymin, ymax, ylen):
+
+class ListComplexPlane(AbsComplexPlane):
+    def __init__(self,xmin,xmax,xlen,ymin,ymax,ylen):
         self.xmin  = xmin
         self.xmax  = xmax
         self.xlen  = xlen
@@ -21,19 +23,25 @@ class ListComplexPlane(abscplane):
         #fs    =
         dx = (xmax - xmin)/(xlen - 1)
         dy = (ymax - ymin)/(ylen - 1)
+        print(dx)
         listoflists = []
         for i in range(xmin,xmax):
             sublist = []
             for j in range(ymin,ymax):
                 sublist.append((xmin + i*dx)+(ymin +j*dy)*1j)
             listoflists.append(sublist)
-            print(listoflists)
+        print(listoflists)
         self.plane = listoflists
 
+    def refresh(self):
+        pass
+
+    def apply(self, f):
+        pass
+
+    def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
+        pass
 
 
-#    def refresh(self):
 
-#    def apply(self, f):
-
-#    def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
+myPlane = ListComplexPlane(0,10,11,0,10,11)
