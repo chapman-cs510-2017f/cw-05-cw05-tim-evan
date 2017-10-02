@@ -33,7 +33,7 @@ class ListComplexPlane(AbsComplexPlane):
             listoflists.append(sublist)
         self.plane = listoflists
 
-    def setPlane(self,xmin,xmax,xlen,ymin,ymax,ylen):
+    def __setPlane(self,xmin,xmax,xlen,ymin,ymax,ylen):
         dx = (xmax - xmin)/(xlen - 1)
         dy = (ymax - ymin)/(ylen - 1)
         listoflists = []
@@ -43,7 +43,7 @@ class ListComplexPlane(AbsComplexPlane):
                 sublist.append((xmin + i*dx)+(ymin +j*dy)*1j)
             listoflists.append(sublist)
         self.plane = listoflists
-        pass
+        return
 
     def refresh(self):
         dx = (self.xmax - self.xmin)/(self.xlen - 1)
@@ -55,10 +55,20 @@ class ListComplexPlane(AbsComplexPlane):
                 sublist.append((self.xmin + i*dx)+(self.ymin +j*dy)*1j)
             listoflists.append(sublist)
         self.plane = listoflists
-        pass
+        self.fs = []
+        return
+
+    def f(self,x,f):
+        
 
     def apply(self, f):
-        pass
+        self.fs.append(f)
+        for i in range(self.xmin,self.xmax):
+            sublist = self.plane[i]
+            for j in range(self.ymin,self.ymax):
+                sublist[j] = f(sublist[j],f)
+            self.plane.insert[i] = sublist
+        return
 
     def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
         self.xmin  = xmin
@@ -67,13 +77,12 @@ class ListComplexPlane(AbsComplexPlane):
         self.ymin  = ymin
         self.ymax  = ymax
         self.ylen  = ylen
-        #self.fs    = fs
         self.plane = setPlane(self,xmin,xmax,xlen,ymin,ymax,ylen)
-        pass
+        return
     def printTable(self):
         for s in self.plane:
             print(*s)
-        pass
+        return
 
 
 myPlane = ListComplexPlane(-10,10,21,-10,10,21)
