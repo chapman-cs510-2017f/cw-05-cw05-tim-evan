@@ -126,16 +126,14 @@ class ListComplexPlane(AbsComplexPlane):
 
 
 
-    #def apply(self, f):
-    #    self.fs.append(f)
-    #    for i in range(self.xmin,self.xmax):
-    #        sublist = self.plane[i]
-    #        for j in range(self.ymin,self.ymax):
-    #            sublist[j] = f(sublist[j],f)
-    #        self.plane.insert[i] = sublist
-    #    return
 
 myPlane = ListComplexPlane(-10,10,21,-10,10,21)
 myPlane.printTable()
 myPlane.zoom(-5,5,6,-5,5,6)
+myPlane.printTable()
+
+def f(x):
+    return x*x
+
+myPlane.apply(f)
 myPlane.printTable()
