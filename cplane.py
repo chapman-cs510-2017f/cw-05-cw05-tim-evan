@@ -29,19 +29,19 @@ from abscplane import AbsComplexPlane
 
 class ListComplexPlane(AbsComplexPlane):
     def __init__(self,xmin,xmax,xlen,ymin,ymax,ylen):
-    """this function is the constructor and implements all private vars to given input,
-    implements self.plane(complex plane) using the given input
-    Args:
-        self (key word): to refrence private vars
-        xmin (int): minimum x value in table
-        xmax (int): maximum x value in table
-        xlen (int): # x points
-        ymin (int): minimum y value in table
-        ymax (int): maximum y value in table
-        ylen (int): # y points
-    return:
-        Null: returns nothing
-    """
+        """this function is the constructor and implements all private vars to given input,
+        implements self.plane(complex plane) using the given input
+        Args:
+            self (key word): to refrence private vars
+            xmin (int): minimum x value in table
+            xmax (int): maximum x value in table
+            xlen (int): # x points
+            ymin (int): minimum y value in table
+            ymax (int): maximum y value in table
+            ylen (int): # y points
+        Return:
+            Null: returns nothing
+        """
         self.xmin  = xmin
         self.xmax  = xmax
         self.xlen  = xlen
@@ -63,27 +63,28 @@ class ListComplexPlane(AbsComplexPlane):
         self.fs = []
         return
 
-
     def printTable(self):
         """this function prints complex plane in a legible fashion.
         Args:
             self (key word): to refrence private vars
-        return:
+        Return:
             Null: returns nothing
         """
-        print("##################-Complex Plane-####################")
-        for s in self.plane:
-            print(*s)
-        print("#####################################################")
+        print("##########################-Complex Plane-##############################")
+        for i in range(self.xlen):
+            for j in range(self.ylen):
+                print(self.plane[i][j], end = "\t\t")
+            print("\n")
+        print("#######################################################################")
         return
 
     def refresh(self):
-         """this function resets self.plane to private stored variables that define the table
-         and clears all functions applied by setting self.fs = []
+        """this function resets self.plane to private stored variables that define the table
+        and clears all functions applied by setting self.fs = []
         Args:
-            self (key word): to refrence private vars
-        return:
-            Null: returns nothing
+           self (key word): to refrence private vars
+        Return:
+           Null: returns nothing
         """
         dx = (self.xmax - self.xmin)/(self.xlen - 1)
         dy = (self.ymax - self.ymin)/(self.ylen - 1)
@@ -98,12 +99,12 @@ class ListComplexPlane(AbsComplexPlane):
         return
 
     def apply(self, f):
-         """this function adds given input f to self.fs, then
+        """this function adds given input f to self.fs, then
         applies f to all pnts in self.plane
         Args:
             self (key word): to refrence private vars
             f (fxn): complex function
-        return:
+        Return:
             Null: returns nothing
         """
         self.fs.append(f)
@@ -114,7 +115,7 @@ class ListComplexPlane(AbsComplexPlane):
 
 
     def setPlane(self,xmin,xmax,xlen,ymin,ymax,ylen):
-         """this function changes the complex plane size using given input values.
+        """this function changes the complex plane size using given input values.
         Args:
             self (key word): to refrence private vars
             xmin (int): minimum x value in table
@@ -123,7 +124,7 @@ class ListComplexPlane(AbsComplexPlane):
             ymin (int): minimum y value in table
             ymax (int): maximum y value in table
             ylen (int): # y points
-        return:
+        Return:
             Null: returns nothing
         """
         self.xmin  = xmin
@@ -149,7 +150,7 @@ class ListComplexPlane(AbsComplexPlane):
         without adding functions to fs. This changes self.plane
         Args:
             self (key word): to refrence private vars
-        return:
+        Return:
             Null: returns nothing
         """
         for k in range(len(self.fs)):
@@ -160,9 +161,9 @@ class ListComplexPlane(AbsComplexPlane):
         return
 
     def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
-         """this function changes the table size using given input values,
-         and re-applys all f in self.fs. this is achieved by calling setPlane and
-         applyAllF, see also these fxns
+        """this function changes the table size using given input values,
+        and re-applys all f in self.fs. this is achieved by calling setPlane and
+        applyAllF, see also these fxns
         Args:
             self (key word): to refrence private vars
             xmin (int): minimum x value in table
@@ -171,7 +172,7 @@ class ListComplexPlane(AbsComplexPlane):
             ymin (int): minimum y value in table
             ymax (int): maximum y value in table
             ylen (int): # y points
-        return:
+        Return:
             Null: returns nothing
         """
         self.setPlane(xmin,xmax,xlen,ymin,ymax,ylen)
@@ -185,7 +186,7 @@ class ListComplexPlane(AbsComplexPlane):
 ##
     #FOR TESTING ONLY, DELETE FOR FINAL SUBMISSION
 ##
-myPlane = ListComplexPlane(-10,10,21,-10,10,21)
+myPlane = ListComplexPlane(-5,5,11,-5,5,11)
 myPlane.printTable()
 
 def f(x):
@@ -193,7 +194,7 @@ def f(x):
 
 myPlane.apply(f)
 myPlane.printTable()
-myPlane.zoom(-5,5,6,-5,5,6)
+myPlane.zoom(-2,2,5,-2,2,5)
 myPlane.printTable()
 myPlane.refresh()
 myPlane.printTable()
