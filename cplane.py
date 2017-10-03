@@ -106,6 +106,7 @@ class ListComplexPlane(AbsComplexPlane):
 
     def applyAllF(self):
         """applies all of the transformations in fs in order to the plane
+        without adding functions to fs
         """
         for k in range(len(self.fs)):
             f = self.fs[k]
@@ -115,22 +116,7 @@ class ListComplexPlane(AbsComplexPlane):
         return
 
     def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
-        self.xmin  = xmin
-        self.xmax  = xmax
-        self.xlen  = xlen
-        self.ymin  = ymin
-        self.ymax  = ymax
-        self.ylen  = ylen
-        dx = (xmax - xmin)/(xlen - 1)
-        dy = (ymax - ymin)/(ylen - 1)
-
-        listoflists = []
-        for i in range(xmin,xmax):
-            sublist = []
-            for j in range(ymin,ymax):
-                sublist.append((xmin + i*dx)+(ymin +j*dy)*1j)
-            listoflists.append(sublist)
-        self.plane = listoflists
+        __setPlane(xmin,xmax,xlen,ymin,ymax,ylen)
         applyAllF()
 
 
