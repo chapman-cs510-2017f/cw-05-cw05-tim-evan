@@ -39,17 +39,23 @@ class ListComplexPlane(AbsComplexPlane):
         dx = (xmax - xmin)/(xlen - 1)
         dy = (ymax - ymin)/(ylen - 1)
 
-        self.plane = []
-        self.fs = []
-
-    def __generate_planegrid(self,xmin,xmax,xlen,ymin,ymax,ylen,dx,dy):
-        """Builds complex plane"""
+        listoflists = []
         for i in range(xmin,xmax):
             sublist = []
             for j in range(ymin,ymax):
                 sublist.append((xmin + i*dx)+(ymin +j*dy)*1j)
+            listoflists.append(sublist)
+        self.plane = listoflists
+
+        self.fs = []
+
+    def __generate_planegrid(self,xmin,xmax,xlen,ymin,ymax,ylen,dx,dy):
+        """Builds complex plane"""
+        for i in range(xmin,xmax):           # he wants us to generate the plane in the __init__
+            sublist = []
+            for j in range(ymin,ymax):
+                sublist.append((xmin + i*dx)+(ymin +j*dy)*1j)
             self.plane.append(sublist)
-        print(self.plane)
         return self.plane
 #ToDo: integrate functions...
 
@@ -59,7 +65,6 @@ class ListComplexPlane(AbsComplexPlane):
         return
 
     def refresh(self):
-
         dx = (self.xmax - self.xmin)/(self.xlen - 1)
         dy = (self.ymax - self.ymin)/(self.ylen - 1)
         listoflists = []
@@ -80,7 +85,7 @@ class ListComplexPlane(AbsComplexPlane):
         return
 
 
-    def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
+    def __setPlane(self,xmin,xmax,xlen,ymin,ymax,ylen):
         self.xmin  = xmin
         self.xmax  = xmax
         self.xlen  = xlen
@@ -99,18 +104,47 @@ class ListComplexPlane(AbsComplexPlane):
         self.plane = listoflists
         return
 
-
-
-
-
-    def apply(self, f):
-        self.fs.append(f)
-        for i in range(self.xmin,self.xmax):
-            sublist = self.plane[i]
-            for j in range(self.ymin,self.ymax):
-                sublist[j] = f(sublist[j],f)
-            self.plane.insert[i] = sublist
+    def applyAllF(self):
+        """applies all of the transformations in fs in order to the plane
+        """
+        for k in range(len(self.fs)):
+            f = self.fs[k]
+            for i in range(self.xmin,self.xmax):
+                for j in range(self.ymin,self.ymax):
+                    self.plane[i][j] = f(self.plane[i][j]
         return
+
+    def zoom(self,xmin,xmax,xlen,ymin,ymax,ylen):
+        self.xmin  = xmin
+        self.xmax  = xmax
+        self.xlen  = xlen
+        self.ymin  = ymin
+        self.ymax  = ymax
+        self.ylen  = ylen
+        dx = (xmax - xmin)/(xlen - 1)
+        dy = (ymax - ymin)/(ylen - 1)
+
+        listoflists = []
+        for i in range(xmin,xmax):
+            sublist = []
+            for j in range(ymin,ymax):
+                sublist.append((xmin + i*dx)+(ymin +j*dy)*1j)
+            listoflists.append(sublist)
+        self.plane = listoflists
+        applyAllF()
+
+
+
+
+
+    #def apply(self, f):
+    #    self.fs.append(f)
+    #    for i in range(self.xmin,self.xmax):
+    #        sublist = self.plane[i]
+    #        for j in range(self.ymin,self.ymax):
+    #            sublist[j] = f(sublist[j],f)
+    #        self.plane.insert[i] = sublist
+    #    return
 
 myPlane = ListComplexPlane(-10,10,21,-10,10,21)
 myPlane.printTable()
