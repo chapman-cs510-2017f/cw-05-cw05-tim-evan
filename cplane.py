@@ -56,8 +56,8 @@ class ListComplexPlane(AbsComplexPlane):
         for i in range(self.xlen):
             sublist = []
             for j in range(self.ylen):
-                sublist.append((self.xmax - i*dx)+(self.ymin + j*dy)*1j)
-            listoflists.append(sublist)
+                sublist.append((self.xmax - i*dx)+(self.ymin + j*dy)*1j)   ## WE NEED TO FIND A COMBINATION SUCH THAT THE TOP
+            listoflists.append(sublist)                                    ## LEFT VALUE IN THE PRINTED TABLE IS (xmin + i(ymax))
         self.plane = listoflists
 
         self.fs = []
@@ -182,7 +182,9 @@ class ListComplexPlane(AbsComplexPlane):
 
 
 
-
+##
+    #FOR TESTING ONLY, DELETE FOR FINAL SUBMISSION
+##
 myPlane = ListComplexPlane(-10,10,21,-10,10,21)
 myPlane.printTable()
 
@@ -195,3 +197,34 @@ myPlane.zoom(-5,5,6,-5,5,6)
 myPlane.printTable()
 myPlane.refresh()
 myPlane.printTable()
+##
+    # NOTE: WE DO NOT NEED A MAIN BECAUSE WE ARE NOT ACCESSING FILE THROUGH COMMAND TERMINAL.
+    #       SINCE WE ARE ONLY USING THE CODE IN THE JUPYTER NOTEBOOK
+##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
